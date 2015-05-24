@@ -1,0 +1,32 @@
+#!/bin/bash
+
+checks() {
+	## Load settings
+	source "${UCSHTCORE}/checks.ucs"
+	echo ".........................base checks successfully done!";
+	echo "";
+}
+
+mount() {
+	NFSSOURCE="$1";
+	NFSSHAREDIR="$2";
+
+	umount ${NFSSHAREDIR}
+
+	mount -t nfs ${NFSSOURCE} ${NFSSHAREDIR}
+
+	## Check if mount was successfull
+	if [ $? -ne 0 ]
+		then
+			echo "Mount source failed ${NFSSOURCE}"
+		else
+			echo "Mointing successfull"
+	fi
+}
+
+# backup() {
+# }
+
+# recovery() {
+# }
+
