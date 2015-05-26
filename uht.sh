@@ -20,7 +20,7 @@ source "${UCSHTCORE}/functions.ucs"
 
 ##	@var	option		description
 ##	-m	nA		mount tools
-while getopts ":m" opt; do
+while getopts ":mb" opt; do
 	case $opt in
 		m)
 			###########
@@ -62,12 +62,21 @@ while getopts ":m" opt; do
 			if [[ ( "$NVAR" != "" && "$DVAR" != "") ]]; then
 				echo "";
 				echo "Set mountpoint using custom vars";
-				nfsmount ${NVAR} ${DVAR}
+				uhtmount ${NVAR} ${DVAR}
 			else
 				echo "";
 				echo "Set mountpoint using vars from settings.conf";
-				nfsmount ${NFSSOURCE} ${NFSMOUNTDIR}
+				uhtmount ${NFSSOURCE} ${NFSMOUNTDIR}
 			fi
+			exit 1
+			;;
+		b)
+			############
+			## Backup ##
+			############
+			echo "Launch backup features";
+
+			uhtbackup 0
 			;;
 		\?)
 			echo "Invalid option: -$OPTARG" >&2
