@@ -20,7 +20,7 @@ source "${UCSHTCORE}/functions.ucs"
 
 ##	@var	option		description
 ##	-m	nA		mount tools
-while getopts ":mb" opt; do
+while getopts ":mbvsh" opt; do
 	case $opt in
 		m)
 			###########
@@ -77,6 +77,45 @@ while getopts ":mb" opt; do
 			echo "Launch backup features";
 
 			uhtbackup 0
+			;;
+		v)
+			#############
+			## Version ##
+			#############
+			echo "Simple Univention Helper Tools (SimpleUHT ${UHT_VERSION})";
+			echo "(c) 1997-2015 by devXive - research and development. All rights reserved.";
+			echo "";
+			;;
+		s)
+			###########
+			## Setup ##
+			###########
+			echo "Install Univention Helper Tools";
+
+			uhtsetup
+			;;
+		h)
+			##########
+			## Help ##
+			##########
+			echo "Launch Help Site";
+
+			echo "";
+			echo "uht -m			:Mounting tools";
+			echo "uht -b			:Backup tools";
+			echo "uht -v			:Version info";
+			echo "uht -s			:Setup, which make uht global available";
+			echo "uht -h			:Help Site, which also show disk info (mountpoint)";
+			echo "";
+
+			echo "";
+			echo "Show disk infos of the available mountpoint:";
+			if [[ ( "$DVAR" != "") ]]; then
+				df -h ${DVAR}
+			else
+				df -h ${NFSMOUNTDIR}
+			fi
+			echo "";
 			;;
 		\?)
 			echo "Invalid option: -$OPTARG" >&2
