@@ -26,6 +26,18 @@ grantwa() {
 }
 
 
+uhtsetup() {
+	#Symlink uht.sh for global access
+	ln -s /usr/share/univention-helper-tools/uht.sh /bin/uht
+
+	echo "";
+	echo "Now you can use it as follows:";
+	echo "uht -v                          (To show current version)";
+	echo "uht -m                          (To mount folder as set in settings.conf)";
+	echo "";
+}
+
+
 uhtmount() {
 	# Function to mount nfs shares with additional checks
 	#####################################################
@@ -162,7 +174,7 @@ uhtbackup() {
 		fi 
 	fi
 
-	backupnr=0001
+	backupnr=000${backupnr}
 	backupnr=${backupnr: -3}
 	filename=backup-${backupnr}.tgz
 
